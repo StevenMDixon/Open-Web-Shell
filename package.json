@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "babel ./src --out-dir ./dist -s inline",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "link": "link"
   },
   "author": "",
   "license": "ISC",

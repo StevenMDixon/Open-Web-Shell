@@ -1,13 +1,13 @@
 
-# :cocktail: Styled Shell
+# :cocktail: Open Web Shell
 
-Ever wanted to include a terminal in your app or website? React Shell aims to be your one stop shop for terminals! impementation is as easy as installing with npm and defining what it should do!
+Ever wanted to include a terminal in your app or website? Open Web Shell aims to be your one stop shop for terminals! impementation is as easy as installing with npm and defining what it should do!
 
 # Installation
 
 Not implemented
 
-> npm install -s styledshell
+> npm install -s openwebshell
 
 make sure to install the google ubuntu font so things look perfect
 
