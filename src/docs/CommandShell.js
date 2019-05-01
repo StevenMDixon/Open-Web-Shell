@@ -4,12 +4,13 @@ import { PropTypes } from 'prop-types';
 /**
  * Open Web Shell will take any 
  * 
- * 
- * Default commands are "List and clear"
+ * Default commands are "List, clear, color, font"
  * 
  * list: lists all commands available including user specified.
  * 
  * clear: clears the console.
+ * 
+ * color: changes the color of the app w
  *
  * @visibleName Using Shell with Commands
  */
