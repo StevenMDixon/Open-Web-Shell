@@ -42,7 +42,11 @@ function Shell({ functionList, config, styles = {} }) {
     //Provide functions for context for the default functions
     const defaultUseFunctions = {
         clearLines: () => { isCleared.current = true },
+        setFont:(e)=>{
+            setStateStyles({ ...stateStyles, fontFamily: e }) 
+        },
         setColor: (e) => { 
+            if(e === 'reset') return (  setStateStyles({ ...stateStyles, ...{color: "white", backgroundColor: 'black'} }),"Color reset.")
             let selected = {}
             let options = e.split("").slice(0,2);
             if(options.length !== 2){
@@ -52,14 +56,14 @@ function Shell({ functionList, config, styles = {} }) {
                     return `Please do not specify the same color for foreground and background.`
                 }
                 else{
-                    if(shellColors[options[0]]){
-                        selected.color = shellColors[options[0].toUpperCase()] || null;
+                    if(shellColors[options[0].toUpperCase()]){
+                        selected.color = shellColors[options[0].toUpperCase()] || stateStyles.color;
                     }
-                    if(shellColors[options[1]]){
-                        selected.backgroundColor = shellColors[options[1].toUpperCase()] || null;
+                    if(shellColors[options[1].toUpperCase()]){
+                        selected.backgroundColor = shellColors[options[1].toUpperCase()] || stateStyles.backgroundColor;
                     }
-                    
-                    setStateStyles({ ...stateStyles, ...selected }) }
+                    setStateStyles({ ...stateStyles, ...selected }) };
+                    return 'color set.';
                 }
             }
     }

@@ -1,10 +1,10 @@
 const _getCommands = (command) =>{
     /*
     * Todo:
-    *   Add handler for promises
-    *   
-    * 
-    * 
+    *   Add handler for promises (Promise.resolve(obj) == obj)
+    *   Fix returns so that it is known what is passed back to func. - done...
+    *   some sort of actual scripting? Prompt command?
+    *   loading type of thing... with promises 
     */
 
 
@@ -27,10 +27,10 @@ const _getCommandSuggestions = (command, funcs, error) =>{
     //return custom error message if defined
     if(error) return error;
     //check if any of the functions match and return a list of all close answers
-    let suggestion = funcs.filter(a=> a.name[0] === command[0]).reduce((a,c)=>{a+=c.name+"\n"; return a}, "");
+    let suggestion = funcs.filter(a=> a.name[0] === command[0]).reduce((a,c)=>{a+="\n"+c.name; return a}, "");
     let suggestionText = "";
     if(command.length !== 0 && suggestion.length !== 0){
-        suggestionText = `Did you mean:\n ${suggestion}`;
+        suggestionText = `Did you mean: ${suggestion}`;
     }
     return `Command Could Not Be Found. ${suggestionText}`;
 }
@@ -40,8 +40,7 @@ const _getCorrectParameters = (func) =>{
     let options = Object.keys(func.options)|| false;
     let output = "";
     if(options){
-        output = `
-        "Available Parameters:\n"
+        output = `Available Parameters:\n
         ${options.reduce((a,c)=>{a+="-"+c+"\n"; return a}, "")}
         `;
     }
@@ -98,8 +97,11 @@ const Engine = (funcs, command, defError=false) =>{
         //Verify the options users passed in their command are valid
         let runCommands = splitCommands.map(a => {
             let optionFunction = selectedCommand.options[a.option] || false;
+            
             if(optionFunction){
-                return optionFunction(a.arg)||false;
+                let tempObject = {};
+                tempObject[a.option] = optionFunction(a.arg);
+                return tempObject;
             }else{
                 return false;
             }
@@ -110,6 +112,7 @@ const Engine = (funcs, command, defError=false) =>{
         }
         //Return our selected command with the options passed in.
         //currenty no way to tell which tag was specified in what order...
+        //we will make it return objects! when flags are present!
         return selectedCommand.func(...runCommands);
     }
 }

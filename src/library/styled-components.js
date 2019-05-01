@@ -21,7 +21,7 @@ const shellColors = {
 
 const ShellWrapper = styled.div`
 font-family: ${props => props.styles.fontFamily? props.styles.fontFamily: "'Ubuntu Mono', monospace;"}
-display:flex;
+display: flex;
 flex-direction: column;
 background-color: ${props => props.styles.backgroundColor? props.styles.backgroundColor: "black"};
 width: ${props => props.styles.width? props.styles.width: "100%"}

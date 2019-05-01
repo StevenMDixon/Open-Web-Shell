@@ -6,3 +6,5 @@ build
 .tgz
 package-lock.json
 .babelrc
+styleguide.config.js
+webpack.config.js

@@ -11,7 +11,12 @@ function defaultCommands(context, funcs=[], enabled=true) {
         {
             name: 'color',
             func: context.setColor,
-            def: ()=>"provide color to change text"
+            def: ()=>context.setColor("reset")
+        },
+        {
+            name: 'font',
+            func: context.setFont,
+            def: ()=>"provide a font name to set the font to"
         }
     ]
     //create list bases on whether we want to use default functions. also clears duplicates from defaults
