@@ -2,7 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/lib/index.js'),
+  entry: path.resolve(__dirname, './src/library/index.js'),
   output: {
     path: path.resolve(__dirname, './lib/'),
     filename: 'openwebshell.js',
