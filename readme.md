@@ -1,5 +1,5 @@
 
-# :cocktail: Open Web Shell
+# :shrimp: Open Web Shell
 
 Open web shell is a simple terminal/shell for your react web app or react website. 
 
