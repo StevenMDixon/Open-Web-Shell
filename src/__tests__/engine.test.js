@@ -1,4 +1,4 @@
-import {Engine, coreFunctions} from '../engine.js';
+import {Engine, coreFunctions} from './lib/engine.js';
 
 
 const {
@@ -50,7 +50,6 @@ describe('_getFunctionFromFunctionList', ()=>{
         expect(typeof _getFunctionFromFunctionList(list, 'clear')).toEqual('object');
     })
     it('should return empty Array if no function is found', ()=>{
-        console.log(_getFunctionFromFunctionList(list, 'test'))
         expect(Array.isArray(_getFunctionFromFunctionList(list, 'run'))).toEqual(true);
     })
 })
@@ -69,9 +68,8 @@ describe('_getCommandSuggestions', ()=>{
 
 describe('_getCorrectParameters', ()=>{
     it('should return a list of available flags if incorrect flag is provided', ()=>{
-        expect(_getCorrectParameters(list[1]).length).toEqual(52)
+        expect(_getCorrectParameters(list[1]).length).toEqual(81)
     })
-    
 })
 
 describe('_applySecondOptionToFunction', ()=>{

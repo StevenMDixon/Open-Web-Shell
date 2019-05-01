@@ -1,32 +1,37 @@
 {
   "name": "openwebshell",
-  "version": "1.0.0",
-  "description": "A shell for your website or webapp.",
-  "main": "dist/index.js",
+  "version": "1.0.1",
+  "description": "A simple shell for your website or webapp.",
+  "main": "lib/openwebshell.js",
+  "repository": "https://github.com/StevenDixonDev/Open-Web-Shell.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "babel ./src --out-dir ./dist -s inline",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
-    "link": "link"
+    "test": "jest --verbose",
+    "prepublishOnly": "npm run build",
+    "build": "webpack --mode=production --display-modules"
   },
-  "author": "",
+  "author": "StevenDixonDev",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "babel-jest": "^24.7.1",
+    "babel-loader": "^8.0.5",
+    "jest": "24.7.1",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-node-externals": "^1.7.2",
+    "react-dom": "^16.8.0"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.8.0",
     "styled-components": "^4.2.0",
     "prop-types": "^15.7.2"
   },
-  "files": [
-    "dist/*"
-  ]
+  "dependencies": {
+    "react": "^16.8.0",
+    "styled-components": "^4.2.0",
+    "prop-types": "^15.7.2"
+  }
 }

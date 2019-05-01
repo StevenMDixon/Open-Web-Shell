@@ -1,6 +1,3 @@
 {
-    "ignore": [
-    "**/__tests__", // ignore the whole test directory
-    "**/*.test.js" // ignore test files only
-  ]
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
 }

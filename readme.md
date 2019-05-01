@@ -1,18 +1,18 @@
 
 # :cocktail: Open Web Shell
 
-Ever wanted to include a terminal in your app or website? Open Web Shell aims to be your one stop shop for terminals! impementation is as easy as installing with npm and defining what it should do!
+Open web shell is a simple terminal/shell for your react web app or react website. 
 
 # Installation
 
-Not implemented
-
-> npm install -s openwebshell
+> npm install openwebshell
 
 make sure to install the google ubuntu font so things look perfect
 
 ```HTML
+
 <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+
 ```
 
 # Usage
@@ -24,7 +24,9 @@ make sure to install the google ubuntu font so things look perfect
 ```
 
 
-#Requirement
+# Dependancies
 
-- React: ^16.8
-- styled-components: ^4.2.0
+- React: "^16.8.0"
+- styled-components: "^4.2.0",
+- prop-types: "^15.7.2",
+
