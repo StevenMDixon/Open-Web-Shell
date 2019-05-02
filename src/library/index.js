@@ -22,7 +22,7 @@ function Shell({ functionList, config, styles = {} }) {
   useEffect(() => {
     // Check if this is the first run so that shell is not autofocused on mount
     if (!isFirstRun.current) {
-      let shellLinesToFocus = shell.current.querySelectorAll(`._shelllines`);
+      const shellLinesToFocus = shell.current.querySelectorAll(`._shelllines`);
       shellLinesToFocus[lines.length - 1].focus();
     }
     // after first run set to false
@@ -46,12 +46,13 @@ function Shell({ functionList, config, styles = {} }) {
   const shellDefaultFunctions = {
     clearLines: () => { isCleared.current = true },
     setFont: (e) => {
+      console.log(e)
       setStateStyles({ ...stateStyles, fontFamily: e })
     },
     setColor: (e) => {
       if (e === 'reset') return (setStateStyles({ ...stateStyles, ...{ color: "white", backgroundColor: 'black' } }), "Color reset.")
-      let selected = {}
-      let options = e.split("").slice(0, 2);
+      const selected = {}
+      const options = e.split("").slice(0, 2);
       if (options.length !== 2) {
         return `Please Provide a two digit hexadecimal number to set the foreground and background`
       } else {
@@ -73,7 +74,7 @@ function Shell({ functionList, config, styles = {} }) {
   }
   // Apply the provided Functions from props to our engine, called when enter is detected.
   const applyFunction = (commandFromPrompt) => {
-    let completeCommands = defaultCommands(shellDefaultFunctions, functionList, config.defaultFunctions);
+    const completeCommands = defaultCommands(shellDefaultFunctions, functionList, config.defaultFunctions);
     return Engine(completeCommands, commandFromPrompt, config.defaultError);
   }
   // Captures focus when Shell component is clicked on
@@ -86,7 +87,7 @@ function Shell({ functionList, config, styles = {} }) {
   //remove focus from last line item
   const removeFocus = (e) => {
     //get all shell lines
-    let shellLinesToFocus = shell.current.querySelectorAll('._shelllines');
+    const shellLinesToFocus = shell.current.querySelectorAll('._shelllines');
       // remove Focus
       shellLinesToFocus[lines.length - 1].blur();
       // disable current input
@@ -97,23 +98,16 @@ function Shell({ functionList, config, styles = {} }) {
     removeFocus();
     // Use the apply function to get the return from the engine
     let output = applyFunction(lines[lines.length - 1].inst);
+
+    console.log(output)
     // check if function is returned...
     if(output instanceof Function){
       console.log('test')
       output = 'function'
     }
-    // check if the returned value is a promise.
-    if(Promise.resolve(output) == output){
-      // set the wait so that users can't input anything
-      // once the wait is through 
-      output.then((data)=>{
-        // set the wait variable to off
-        setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: data } : item), { id: lines.length, inst: "" }])
-      })
-    }else{
-      // set the wait variable to off;
-      setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: output } : item), { id: lines.length, inst: "" }])
-    }
+    // set the wait variable to off;
+    setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: output } : item), { id: lines.length, inst: "" }])
+    
   }
 
   // Checks for return character any time a keydown is detected

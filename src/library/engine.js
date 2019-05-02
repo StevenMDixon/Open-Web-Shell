@@ -16,8 +16,8 @@ const getCommands = (command) => {
 const getFunctionFromFunctionList = (list, target) => {
   // filter function list to match target
   const output = list.filter(a => a.name === target);
-  // return object or return empty array
-  return output.length > 0 ? output[0] : output;
+  // return object or return null value
+  return output.length > 0 ? output[0] : null;
 };
 
 const getCommandSuggestions = (command, funcs, error) => {
@@ -46,7 +46,7 @@ const getCorrectParameters = (func) => {
 };
 
 const applySecondOptionToFunction = (selectedFunction, options) => {
-  const secondOption = options.replace(selectedFunction.name, '').replace(/\s/g, '');
+  const secondOption = options.replace(selectedFunction.name, '').trim();
   if (!Object.keys(selectedFunction).includes('func')) {
     return 'This command does have a specified function to accept secondary parameters.';
   }
@@ -59,6 +59,10 @@ const Engine = (funcs, command, defError = false) => {
 
   // Find the function in the provided funcs array.
   const selectedCommand = getFunctionFromFunctionList(funcs, target);
+
+  if(!selectedCommand){
+    return `${target} is not a defined command.`
+  }
 
   if(!selectedCommand.def){
     return `Default command not specified.`;

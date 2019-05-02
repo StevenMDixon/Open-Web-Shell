@@ -66,15 +66,15 @@ const list = [
     {
         name: 'font', 
         options: {t: (e)=>(e) }, 
-        func: (e)=>(functions.ChangeFonts(e.t)), 
+        func: (e)=>(functions.ChangeFonts(e.t||e)), 
         def: (e)=>["Specify font with -t"]},
     {  
-        name: 'test',
+        name: 'promisetest',
         def: () => {
         let promise1 = new Promise(function(resolve, reject) {
           setTimeout(function() {
             resolve('foo');
-          }, 5000);
+          }, 2000);
         });
         return promise1
       },
