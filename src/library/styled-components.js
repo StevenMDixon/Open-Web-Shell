@@ -45,6 +45,7 @@ const pBase = styled.p`
     margin:  0.2rem 0 0.2rem 0;
     color: inherit
     font-size: 1rem;
+    text-align: left;
 `;
 
 const ShellLocation = styled(pBase)`

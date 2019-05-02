@@ -46,7 +46,6 @@ function Shell({ functionList, config, styles = {} }) {
   const shellDefaultFunctions = {
     clearLines: () => { isCleared.current = true },
     setFont: (e) => {
-      console.log(e)
       setStateStyles({ ...stateStyles, fontFamily: e })
     },
     setColor: (e) => {
@@ -79,7 +78,7 @@ function Shell({ functionList, config, styles = {} }) {
   }
   // Captures focus when Shell component is clicked on
   const captureFocus = (e) => {
-    if ((!e.target.matches('input') || e.target.disabled))  {
+    if (((!e.target.matches('input') || e.target.disabled)) && e.target.matches('p'))  {
       let shellLinesToFocus = shell.current.querySelectorAll('._shelllines');
       shellLinesToFocus[lines.length - 1].focus();
     }
@@ -98,8 +97,6 @@ function Shell({ functionList, config, styles = {} }) {
     removeFocus();
     // Use the apply function to get the return from the engine
     let output = applyFunction(lines[lines.length - 1].inst);
-
-    console.log(output)
     // check if function is returned...
     if(output instanceof Function){
       console.log('test')
