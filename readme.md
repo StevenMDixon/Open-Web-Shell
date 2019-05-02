@@ -105,7 +105,7 @@ const styles = {
 
 ```
 
-# Dependancies
+# Dependencies
 
 - React: "^16.8.0"
 - styled-components: "^4.2.0",

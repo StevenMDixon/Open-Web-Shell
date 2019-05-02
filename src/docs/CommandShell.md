@@ -29,6 +29,16 @@ const list = [
     }
 ]
 
+// If you need to call functions from a component or object you can create the list like this, and pass in the context that is needed.
+
+const provideListContext = (context) =>{
+    const list = [
+        name: 'contextTest',
+        def: (e)=> context.function
+    ]
+    return list;
+}
+
 ```
 
 openWebShell can handle returned promises as well, if the function that is called needs to return later, the console will disable any input and wait.
