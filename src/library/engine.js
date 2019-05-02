@@ -1,10 +1,9 @@
 
 /*
    * Todo:
-   *   Add handler for promises (Promise.resolve(obj) == obj)
-   *   Fix returns so that it is known what is passed back to func. - done...
-   *   some sort of actual scripting? Prompt command?
-   *   loading type of thing... with promises.
+   *   
+   * some sort of actual scripting? Prompt command?
+   *  
 */
 
 const getCommands = (command) => {
@@ -61,6 +60,10 @@ const Engine = (funcs, command, defError = false) => {
   // Find the function in the provided funcs array.
   const selectedCommand = getFunctionFromFunctionList(funcs, target);
 
+  if(!selectedCommand.def){
+    return `Default command not specified.`;
+  }
+
   // splits command to for next check to see if user input an extra space after command.
   const splitCommand = command.split(' ');
 
@@ -69,32 +72,36 @@ const Engine = (funcs, command, defError = false) => {
     return getCommandSuggestions(target, funcs, defError);
   }
 
+  //regex matches any flag, not a perfect pattern commands cannot have dashes
+  const testForOptions = command.match(/-.*?(?=\s\-)|-.*/g);
+
   // Case for default options or simple commands that take one input
-  if (!command.includes('-') && splitCommand.length > 1) {
+  if (!testForOptions && splitCommand.length > 1) {
     return applySecondOptionToFunction(selectedCommand, command);
   }
 
   // Remove the target and the split the rest into flags.
-  const options = command.replace(target, '').split(' -').filter(a => (a !== ' ' ? a : ''));
+  //const options = command.replace(target, '').split(' -').filter(a => (a !== ' ' ? a : ''));
 
   // Handle provided options while there are not any flags in the function
   if ((!selectedCommand.options
     || Object.keys(selectedCommand.options).length === 0)
-    && options.length > 0) {
+    && testForOptions) {
     return 'Command does not have flags. Remove flags and run command again.';
   }
-  // Handle no options or no options provided by users
-  if (options.length <= 0
+  // Handle no options or no options provided by users return default function
+  if (
+    !testForOptions
     || !selectedCommand.options
     || Object.keys(selectedCommand.options).length <= 0) {
     return selectedCommand.def(selectedCommand);
-  // eslint-disable-next-line no-else-return
+
   } else {
     // Handle options, by creating a new array of objects.
     // [{option: e, arg: ""}]
-    const splitCommands = options.reduce((acc, cur) => {
+    const splitCommands = testForOptions.reduce((acc, cur) => {
       const r = cur.split(' ');
-      acc.push({ option: r[0], arg: r.slice(1, r.length).join(' ') });
+      acc.push({ option: r[0].replace(/-/, ''), arg: r.slice(1, r.length).join(' ') });
       return acc;
     }, []);
 

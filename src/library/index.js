@@ -17,9 +17,10 @@ function Shell({ functionList, config, styles = {} }) {
   // Create an effect that uses the ref to update our 
   // focus when a new line is added to state.
   const isCleared = useRef(false);
-  // when checking for enter
+  
+  // when checking for enter on line 
   useEffect(() => {
-    // Check if this is the first run so that shell is not autofocused on
+    // Check if this is the first run so that shell is not autofocused on mount
     if (!isFirstRun.current) {
       let shellLinesToFocus = shell.current.querySelectorAll(`._shelllines`);
       shellLinesToFocus[lines.length - 1].focus();
@@ -42,7 +43,7 @@ function Shell({ functionList, config, styles = {} }) {
     setLines(lines.map(item => item.id + 'Lines' === e.target.id ? { id: item.id, inst: e.target.value } : item))
   }
   // Provide functions for context for the default functions
-  const defaultUseFunctions = {
+  const shellDefaultFunctions = {
     clearLines: () => { isCleared.current = true },
     setFont: (e) => {
       setStateStyles({ ...stateStyles, fontFamily: e })
@@ -72,16 +73,49 @@ function Shell({ functionList, config, styles = {} }) {
   }
   // Apply the provided Functions from props to our engine, called when enter is detected.
   const applyFunction = (commandFromPrompt) => {
-    let completeCommands = defaultCommands(defaultUseFunctions, functionList, config.defaultFunctions);
+    let completeCommands = defaultCommands(shellDefaultFunctions, functionList, config.defaultFunctions);
     return Engine(completeCommands, commandFromPrompt, config.defaultError);
   }
   // Captures focus when Shell component is clicked on
   const captureFocus = (e) => {
-    if (!e.target.matches('input') || e.target.disabled) {
+    if ((!e.target.matches('input') || e.target.disabled))  {
       let shellLinesToFocus = shell.current.querySelectorAll('._shelllines');
       shellLinesToFocus[lines.length - 1].focus();
     }
   }
+  //remove focus from last line item
+  const removeFocus = (e) => {
+    //get all shell lines
+    let shellLinesToFocus = shell.current.querySelectorAll('._shelllines');
+      // remove Focus
+      shellLinesToFocus[lines.length - 1].blur();
+      // disable current input
+      shellLinesToFocus[lines.length - 1].disabled = true;
+  }
+  const handleReturns = () =>{
+    //blur our current line
+    removeFocus();
+    // Use the apply function to get the return from the engine
+    let output = applyFunction(lines[lines.length - 1].inst);
+    // check if function is returned...
+    if(output instanceof Function){
+      console.log('test')
+      output = 'function'
+    }
+    // check if the returned value is a promise.
+    if(Promise.resolve(output) == output){
+      // set the wait so that users can't input anything
+      // once the wait is through 
+      output.then((data)=>{
+        // set the wait variable to off
+        setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: data } : item), { id: lines.length, inst: "" }])
+      })
+    }else{
+      // set the wait variable to off;
+      setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: output } : item), { id: lines.length, inst: "" }])
+    }
+  }
+
   // Checks for return character any time a keydown is detected
   // Also Catches tabs and prevent them from changing focus
   const checkForReturns = (e) => {
@@ -90,10 +124,10 @@ function Shell({ functionList, config, styles = {} }) {
     }
     if (e.key === 'Enter') {
       e.preventDefault();
-      let output = applyFunction(lines[lines.length - 1].inst);
-      setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: output } : item), { id: lines.length, inst: "" }])
+      handleReturns();
     }
   }
+  
   const createOutLines = (line) => {
     if (Array.isArray(line)) {
       // if engine returns we map the output to the LineOutput component
@@ -101,12 +135,13 @@ function Shell({ functionList, config, styles = {} }) {
     } else {
       // if user wants to use newline instead of creating an array themselves.
       if (line.includes('\n')) {
-        return line.split('\n').map(out => <LineOutput key={out + 'Output'}>{out}</LineOutput>)
+        return line.split('\n').map((out, index) => <LineOutput key={index + 'Output'}>{out}</LineOutput>)
       } else
         // if the return is just one line of text return
         return <LineOutput>{line}</LineOutput>
     }
   }
+
   return (
     <ShellWrapper ref={shell} styles={stateStyles} onClick={captureFocus} onKeyDown={checkForReturns}>
       {lines.map((item, index) =>
@@ -123,7 +158,7 @@ function Shell({ functionList, config, styles = {} }) {
               className="_shelllines"
               id={item.id + "Lines"}
               key={item.id + 'Input'}
-              disabled={index !== lines.length - 1}
+              disabled={(index < lines.length-1)}
               value={item.inst}
               onChange={updateLineValue}
               maxLength={config.charMax || "30"}

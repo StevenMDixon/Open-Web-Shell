@@ -18,6 +18,12 @@ function defaultCommands(context, funcs = [], enabled = true) {
       func: context.setFont,
       def: () => 'provide a font name to set the font to',
     },
+    {
+      name: 't',
+      options: {},
+      def: ()=>('eee'),
+      func: (e)=>((e)=>(e+1))
+    }
   ];
   // create list bases on whether we want to use default functions.
   // also clears duplicates from defaults

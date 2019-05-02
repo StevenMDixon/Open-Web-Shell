@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest --verbose",
     "prepublishOnly": "npm run build",
-    "build": "webpack --mode=production --display-modules",
+    "build": "webpack --mode=production",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },
