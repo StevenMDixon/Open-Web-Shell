@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Shell } from './lib/index';
+import { Shell } from '../library/index';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Shell config={{}} functionList={[]}/>, div);
+    ReactDOM.render(<Shell />, div);
     ReactDOM.unmountComponentAtNode(div);
 });
