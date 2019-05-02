@@ -1,7 +1,7 @@
 
 # :shrimp: Open Web Shell
 
-Open web shell is a simple terminal/shell for your react web app or react website. 
+Open web shell is a small and simple terminal/shell for your react web app or react website. 
 
 # Installation
 
