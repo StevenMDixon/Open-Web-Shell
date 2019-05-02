@@ -99,7 +99,6 @@ function Shell({ functionList, config, styles = {} }) {
     let output = applyFunction(lines[lines.length - 1].inst);
     // check if function is returned...
     if(output instanceof Function){
-      console.log('test')
       output = 'function'
     }
     // set the wait variable to off;
