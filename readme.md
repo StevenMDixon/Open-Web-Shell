@@ -87,7 +87,7 @@ const list = [
  
  Yes just provide the correct context.
 
-You can check out more advanced examples in the [Style Guide]()
+You can check out more advanced examples in the [Style Guide](https://stevendixondev.github.io/Open-Web-Shell/)
 
 ### styles
 
