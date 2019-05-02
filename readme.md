@@ -1,6 +1,12 @@
 
 # :shrimp: Open Web Shell
 
+[![npm version](https://badge.fury.io/js/openwebshell.svg)](https://badge.fury.io/js/openwebshell)
+[![test](https://david-dm.org/stevendixondev/Open-Web-Shell.svg)](https://david-dm.org/stevendixondev/Open-Web-Shell)
+[![Known Vulnerabilities](https://snyk.io/test/github/stevendixondev/Open-Web-Shell/badge.svg)](https://snyk.io/test/github/stevendixondev/Open-Web-Shell)
+[![build passing](https://travis-ci.com/StevenDixonDev/Open-Web-Shell.svg?branch=master)](https://travis-ci.com/StevenDixonDev/Open-Web-Shell)
+
+
 Open web shell is a small and simple terminal/shell for your react web app or react website. 
 
 # Installation
