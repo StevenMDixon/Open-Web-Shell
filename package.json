@@ -1,6 +1,6 @@
 {
   "name": "openwebshell",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple shell for your website or webapp.",
   "main": "lib/openwebshell.js",
   "repository": "https://github.com/StevenDixonDev/Open-Web-Shell.git",
