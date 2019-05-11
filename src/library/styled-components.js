@@ -19,7 +19,7 @@ const shellColors = {
   F: 'White',
 };
 
-const ShellWrapper = styled.div`
+const ShellWrapper = styled.div `
 font-family: ${props => (props.styles.fontFamily ? props.styles.fontFamily : "'Ubuntu Mono', monospace;")}
 display: flex;
 flex-direction: column;
@@ -28,12 +28,12 @@ width: ${props => (props.styles.width ? props.styles.width : '100%')}
 color: ${props => (props.styles.color ? props.styles.color : 'white')}
 height: ${props => (props.styles.height ? props.styles.height : '100%')};
 max-width: 100%;
-padding: .2rem;
-overflow: hidden;
+padding: .5rem;
+overflow-Y: scroll;
 cursor: default;
 `;
 
-const LineWrapper = styled.div`
+const LineWrapper = styled.div `
     margin-top: .2rem;
     margin-bottom: .2rem;
     display: flex;
@@ -41,34 +41,35 @@ const LineWrapper = styled.div`
     justify-content: start;
 `;
 
-const pBase = styled.p`
+const pBase = styled.p `
     margin:  0.2rem 0 0.2rem 0;
     color: inherit
-    font-size: 1rem;
+    font-size: ${props => (props.styles.fontSize ? props.styles.fontSize : '1rem')};
     text-align: left;
 `;
 
-const ShellLocation = styled(pBase)`
+const ShellLocation = styled(pBase)
+`
     :after{
-        content: " ";
+        content: ' ';
         white-space: pre;
     }
 `;
 
-const LineOutput = styled(pBase)`
+const LineOutput = styled(pBase)
+`
     width: 100%;
 `;
 
-const LineInput = styled.input`
+const LineInput = styled.input `
     background-color: transparent;
     border: 0px solid transparent;
-    color: ${props => (props.styles.color ? props.styles.color : 'white')}
+    color: inherit;
     margin:  0.2rem 0 0.2rem 0;
     flex-basis: 80%;
-    flex: 1;
-    font-family: ${props => (props.styles.fontFamily ? props.styles.fontFamily : "'Ubuntu Mono', monospace;")}
+    font-family: inherit;
+    font-size: ${props => (props.styles.fontSize ? props.styles.fontSize : "1rem")}
     cursor: default;
-    font-size: 1rem;
     :focus
         outline: none;   
 `;

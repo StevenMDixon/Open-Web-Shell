@@ -9,24 +9,12 @@ Config options
 ```js static
 
 const config = {
-    terminal: "C:\\>",  //Controls shell text. default is ubuntu.
+    terminal: "root@system:~$",  //Controls shell text. default is ubuntu style.
     defaultError: "Sorry that command is not recognized.", //Sets default error message.,
     charMax: 30, //defines the max number of characters allowed one line
-    defaultFunctions: true //default true, enables default functions provided with the shell
+    defaultFunctions: true //default true, enables default functions provided with the shell,
+    startUp: 'list' // default = '', use to run command as termial is mounted can take arguments.
 }
-
+ 
 ```
 
-Style options 
-
-```js static
-
-const config = {
-    color: "red", //Sets color of text. default white.
-    backgroundColor: "black", //Sets color of terminal background. default black.
-    fontFamily: "'Ubuntu Mono', monospace", // Default font ubuntu
-    width: '100%', //default is 100%
-    height: '100%' //default is 100%
- }
-
-```

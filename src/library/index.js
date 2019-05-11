@@ -4,11 +4,12 @@ import { ShellWrapper, LineInput, LineWrapper, ShellLocation, LineOutput, shellC
 import { Engine } from './engine';
 import defaultCommands from './defaultCommands';
 
-function Shell({ functionList, config, styles = {} }) {
+const Shell = (props) => {
+  const { functionList, config, styles } = props;
   // Create a state that holds our styles
   const [stateStyles, setStateStyles] = useState(styles);
   // Create a state that holds input lines
-  const [lines, setLines] = useState([{ id: 0, inst: "" }]);
+  const [lines, setLines] = useState([{ id: 0, inst: (config.startUp||'') }]);
   // first run check
   const isFirstRun = useRef(true);
   // Create a reference to the current shell component 
@@ -18,29 +19,9 @@ function Shell({ functionList, config, styles = {} }) {
   // focus when a new line is added to state.
   const isCleared = useRef(false);
   
-  // when checking for enter on line 
-  useEffect(() => {
-    // Check if this is the first run so that shell is not autofocused on mount
-    if (!isFirstRun.current) {
-      const shellLinesToFocus = shell.current.querySelectorAll(`._shelllines`);
-      shellLinesToFocus[lines.length - 1].focus();
-    }
-    // after first run set to false
-    isFirstRun.current = false;
-  }, [lines.length])
-  // for clear screen
-  useEffect(() => {
-    // create ability to clear screen without callbacks and timers
-    if (isCleared.current) { setLines([{ id: 0, inst: "" }]); isCleared.current = false }
-  }, [lines])
-  // state from props for style prop
-  useEffect(() => {
-    // If and only if the props for styles changes update the state of stateStyles
-    setStateStyles(styles);
-  }, [styles])
   // Update managed input in shell.
   const updateLineValue = (e) => {
-    setLines(lines.map(item => item.id + 'Lines' === e.target.id ? { id: item.id, inst: e.target.value } : item))
+    setLines(lines.map((item, index )=> index === lines.length-1 ? { id: item.id, inst: e.target.value } : item))
   }
   // Provide functions for context for the default functions
   const shellDefaultFunctions = {
@@ -50,8 +31,8 @@ function Shell({ functionList, config, styles = {} }) {
     },
     setColor: (e) => {
       if (e === 'reset') return (setStateStyles({ ...stateStyles, ...{ color: "white", backgroundColor: 'black' } }), "Color reset.")
-      const selected = {}
-      const options = e.split("").slice(0, 2);
+      const selected = {};
+      const options = e.replace(/[^\w]/g,"").split("").slice(0, 2);
       if (options.length !== 2) {
         return `Please Provide a two digit hexadecimal number to set the foreground and background`
       } else {
@@ -78,7 +59,7 @@ function Shell({ functionList, config, styles = {} }) {
   }
   // Captures focus when Shell component is clicked on
   const captureFocus = (e) => {
-    if (((!e.target.matches('input') || e.target.disabled)) && e.target.matches('p'))  {
+    if (((!e.target.matches('input') || e.target.disabled)) )  {
       let shellLinesToFocus = shell.current.querySelectorAll('._shelllines');
       shellLinesToFocus[lines.length - 1].focus();
     }
@@ -99,11 +80,10 @@ function Shell({ functionList, config, styles = {} }) {
     let output = applyFunction(lines[lines.length - 1].inst);
     // check if function is returned...
     if(output instanceof Function){
-      output = 'function'
+      output = 'function';
     }
-    // set the wait variable to off;
-    setLines([...lines.map(item => item.id === lines.length - 1 ? { ...item, out: output } : item), { id: lines.length, inst: "" }])
-    
+    let newLines = lines.map((item, index )=> index === lines.length - 1 ? { ...item, out: output } : item);
+    setLines([...newLines, { id: lines.length, inst: "" }]);
   }
 
   // Checks for return character any time a keydown is detected
@@ -121,23 +101,56 @@ function Shell({ functionList, config, styles = {} }) {
   const createOutLines = (line) => {
     if (Array.isArray(line)) {
       // if engine returns we map the output to the LineOutput component
-      return line.map(out => <LineOutput key={out + 'Output'}>{out}</LineOutput>)
+      return line.map(out => <LineOutput styles={styles} key={out + 'Output'}>{out}</LineOutput>);
     } else {
       // if user wants to use newline instead of creating an array themselves.
       if (line.includes('\n')) {
-        return line.split('\n').map((out, index) => <LineOutput key={index + 'Output'}>{out}</LineOutput>)
+        return line.split('\n').map((out, index) => <LineOutput styles={styles}  key={index + 'Output'}>{out}</LineOutput>);
       } else
         // if the return is just one line of text return
-        return <LineOutput>{line}</LineOutput>
+        return <LineOutput styles={styles}>{line}</LineOutput>
     }
   }
+
+/*
+*
+* Effects
+*
+*/
+ 
+// when checking for enter on line 
+useEffect(() => {
+  // Check if this is the first run so that shell is not autofocused on mount
+  if (!isFirstRun.current) {
+    const shellLinesToFocus = shell.current.querySelectorAll(`._shelllines`);
+    shellLinesToFocus[lines.length - 1].focus();
+  }
+  if (isFirstRun.current && lines[0].inst != '') {
+        handleReturns();
+  }
+  isFirstRun.current = false;
+}, [lines.length])
+// for clear screen
+useEffect(() => {
+  // create ability to clear screen without callbacks and timers
+  if (isCleared.current) {
+    setLines([{ id: 0, inst: "" }]);
+    isCleared.current = false;
+  }
+}, [lines])
+// state from props for style prop
+useEffect(() => {
+  // If and only if the props for styles changes update the state of stateStyles
+  setStateStyles(styles);
+}, [styles]) 
+
 
   return (
     <ShellWrapper ref={shell} styles={stateStyles} onClick={captureFocus} onKeyDown={checkForReturns}>
       {lines.map((item, index) =>
         <React.Fragment key={item.id + 'F'}>
           <LineWrapper key={item.id + 'L'}>
-            <ShellLocation key={item.id + 'S'}>{config.terminal || "root@system:~$"}</ShellLocation>
+            <ShellLocation styles={styles} key={item.id + 'S'}>{config.terminal || "root@system:~$"}</ShellLocation>
             <LineInput
               styles={stateStyles}
               type='text'

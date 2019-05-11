@@ -61,12 +61,16 @@ Currently commands cannot have dashes in their names.
 
 ```jsx inside Markdown
 
+const config = {
+   startUp: 'font -t sans-serif'
+}
+
 const styles = {
-    fontFamily: 'courier'
+    fontFamily: 'courier',
 }
 
 const functions = {
-    ChangeFonts: (e =>{styles.fontFamily = e})
+    ChangeFonts: (e =>{styles.fontFamily = e; return `Font set to ${e}`})
 }
  
 const list = [
@@ -93,5 +97,5 @@ const list = [
 
 
 
-<CommandShell functionList={list} styles={styles}/>
+<CommandShell functionList={list} styles={styles} config={config}/>
 ```

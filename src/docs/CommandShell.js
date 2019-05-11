@@ -7,7 +7,7 @@ import { PropTypes } from 'prop-types';
 const CommandShell = (props) =>{
     /** I am documentation */
     return(
-    <div>
+    <div style={{height: '500px'}}>
     <Shell {...props}/> 
     </div>)
     }

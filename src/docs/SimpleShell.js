@@ -8,7 +8,7 @@ import { PropTypes } from 'prop-types';
  * 
  *@visibleName Basic Shell Setup
  */
-const SimpleShell = (props) =>(<div><Shell {...props}/></div>)
+const SimpleShell = (props) =>(<Shell {...props}/>)
 
 export default SimpleShell;
 
