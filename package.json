@@ -11,8 +11,13 @@
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },
+  "keywords": [
+    "react",
+    "component",
+    "open web shell"
+  ],
   "author": "StevenDixonDev",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",

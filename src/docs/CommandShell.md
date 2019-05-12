@@ -79,7 +79,7 @@ const list = [
         def:()=>(["This command is not implemented"])},
     {
         name: 'font', 
-        options: {t: (e)=>(e) }, 
+        options: {t: (e)=>(e), d: (e)=>e }, 
         func: (e)=>(functions.ChangeFonts(e.t||e)), 
         def: (e)=>["Specify font with -t"]},
     {  

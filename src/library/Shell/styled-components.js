@@ -20,17 +20,17 @@ const shellColors = {
 };
 
 const ShellWrapper = styled.div `
-font-family: ${props => (props.styles.fontFamily ? props.styles.fontFamily : "'Ubuntu Mono', monospace;")}
-display: flex;
-flex-direction: column;
-background-color: ${props => (props.styles.backgroundColor ? props.styles.backgroundColor : 'black')};
-width: ${props => (props.styles.width ? props.styles.width : '100%')}
-color: ${props => (props.styles.color ? props.styles.color : 'white')}
-height: ${props => (props.styles.height ? props.styles.height : '100%')};
-max-width: 100%;
-padding: .5rem;
-overflow-Y: scroll;
-cursor: default;
+    font-family: ${props => (props.styles.fontFamily ? props.styles.fontFamily : "'Ubuntu Mono', monospace;")}
+    display: flex;
+    flex-direction: column;
+    background-color: ${props => (props.styles.backgroundColor ? props.styles.backgroundColor : 'black')};
+    width: ${props => (props.styles.width ? props.styles.width : '100%')}
+    color: ${props => (props.styles.color ? props.styles.color : 'white')}
+    height: ${props => (props.styles.height ? props.styles.height : '100%')};
+    max-width: 100%;
+    padding: .5rem;
+    overflow-Y: scroll;
+    cursor: default;
 `;
 
 const LineWrapper = styled.div `

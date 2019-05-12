@@ -25,7 +25,7 @@ Then import!
 
 ```JavaScript
 
-import {Shell} from 'openwebshell';
+import { Shell } from 'openwebshell';
 
 ```
 
@@ -117,3 +117,23 @@ const styles = {
 - styled-components: "^4.2.0",
 - prop-types: "^15.7.2",
 
+# Releases:
+
+### In Developement: 
+
+v: 1.0.4
+    - Move dependencies to peer dependencies
+    - add new Styles (font-size)
+    - added startUp command options in funcs
+    - added command description, and flag descriptions
+    - added help command in default functions
+    - fixed incorrect license in Package.json
+    - small changes to internal package layout
+    - tests for styled components added
+
+### Current: 
+
+v: 1.0.3 
+    - fixed spelling errors
+    - fixed a small bug in the focus function
+    - fixed bug where output lines were not aligned properly
