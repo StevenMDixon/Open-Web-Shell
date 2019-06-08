@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShellWrapper, LineInput, LineWrapper, ShellLocation, LineOutput } from '../library/styled-components';
+import { ShellWrapper, LineInput, LineWrapper, LineOutput } from '../library/shell/styled-components';
 
 
 it('LineOutput renders without crashing', () => {
@@ -27,8 +27,3 @@ it('LineWrapper renders without crashing', () => {
     ReactDOM.unmountComponentAtNode(div);
 });
 
-it('ShellLocation renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<ShellLocation styles={{}}>test</ShellLocation>, div);
-    ReactDOM.unmountComponentAtNode(div);
-});
