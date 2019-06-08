@@ -6,11 +6,14 @@ function defaultCommands(context, funcs = [], enabled = true) {
       func: (com)=>{
         if(list.some(i => i.name === com)){
           let selected = list.filter(item => item.name === com)[0];
+          if(!selected.help){
+            return `No help available for Command: ${selected.name}`
+          }
           let flagHelp = Object.values(selected.help) || [];
           return `Command: ${com}\n
           ${`Description: ${selected.desc}` || ''}
           ${
-             flagHelp.reduce((acc,cur)=>(acc+cur+'\n', ""))
+             flagHelp.length > 0? flagHelp.reduce((acc,cur)=>(acc+cur+'\n', "")) :'' 
           }
           `
         }else{
@@ -29,16 +32,22 @@ function defaultCommands(context, funcs = [], enabled = true) {
     {
       name: 'clear',
       def: context.clearLines,
+      desc: 'Clears the command prompt',
+      help:{},
     },
     {
       name: 'color',
       func: context.setColor,
       def: () => context.setColor('reset'),
+      desc: 'Use two hexadecimal values to set the color of the shell, or reset by not specifying a color',
+      help:{},
     },
     {
       name: 'font',
       func: context.setFont,
       def: () => 'provide a font name to set the font to',
+      desc: 'Set the font of the shell by specifying a font',
+      help:{},
     },
   ];
   // create list bases on whether we want to use default functions.

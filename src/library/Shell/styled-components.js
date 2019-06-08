@@ -1,22 +1,24 @@
-import styled from 'styled-components';
+import styled, {
+    keyframes
+} from 'styled-components';
 
 const shellColors = {
-  0: 'Black',
-  1: 'Navy',
-  2: 'Green',
-  3: 'Aqua',
-  4: 'Maroon',
-  5: 'Purple',
-  6: 'Yellow',
-  7: 'Silver',
-  8: 'Gray',
-  9: 'Blue',
-  A: 'Lime',
-  B: 'qua',
-  C: 'Red',
-  D: 'Fuchsia',
-  E: 'Teal',
-  F: 'White',
+    0: 'Black',
+    1: 'Navy',
+    2: 'Green',
+    3: 'Aqua',
+    4: 'Maroon',
+    5: 'Purple',
+    6: 'Yellow',
+    7: 'Silver',
+    8: 'Gray',
+    9: 'Blue',
+    A: 'Lime',
+    B: 'qua',
+    C: 'Red',
+    D: 'Fuchsia',
+    E: 'Teal',
+    F: 'White',
 };
 
 const ShellWrapper = styled.div `
@@ -41,44 +43,76 @@ const LineWrapper = styled.div `
     justify-content: start;
 `;
 
+const blink = keyframes `
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0;
+    }   
+`
+
 const pBase = styled.p `
-    margin:  0.2rem 0 0.2rem 0;
-    color: inherit
+    margin:  0;
+    color: ${props => (props.styles.color ? props.styles.color : 'white')};
     font-size: ${props => (props.styles.fontSize ? props.styles.fontSize : '1rem')};
+    position: relative;
     text-align: left;
 `;
 
-const ShellLocation = styled(pBase)
+const InputLine = styled(pBase)
 `
-    :after{
-        content: ' ';
-        white-space: pre;
+    margin: 1rem 0 1rem 0;  
+    &::after {
+        content: '';
+        position: absolute;
+        display: inline-block;
+        vertical-align: top;
+        top: 0;
+        width: .5rem;
+        height: 100%;
+        background-color: ${props => (props.styles.color ? props.styles.color : 'white')}
+        -webkit-animation: ${blink} 1s  infinite;
+        animation: ${blink} 1s  infinite;
     }
 `;
+
+const LineInput = styled(pBase)
+`
+    color: ${props => (props.styles.color ? props.styles.color : 'white')};
+    font-size: ${props => (props.styles.fontSize ? props.styles.fontSize : '1rem')};
+    position: relative;
+    margin: 1rem 0 1rem 0;
+`
+
+
+
+const HiddenInput = styled.input `
+    color: ${props => (props.styles.backgroundColor ? props.styles.backgroundColor : 'black')};
+    background-color: inherit;
+    caret-color: inherit;
+    background-color: transparent;
+    border: 0px solid transparent;
+    :focus
+        outline: none;
+        
+`
+
+
 
 const LineOutput = styled(pBase)
 `
     width: 100%;
 `;
 
-const LineInput = styled.input `
-    background-color: transparent;
-    border: 0px solid transparent;
-    color: inherit;
-    margin:  0.2rem 0 0.2rem 0;
-    flex-basis: 80%;
-    font-family: inherit;
-    font-size: ${props => (props.styles.fontSize ? props.styles.fontSize : "1rem")}
-    cursor: default;
-    :focus
-        outline: none;   
-`;
+
 
 export {
-  LineInput,
-  ShellWrapper,
-  LineWrapper,
-  ShellLocation,
-  LineOutput,
-  shellColors,
+    LineInput,
+    ShellWrapper,
+    LineWrapper,
+    LineOutput,
+    shellColors,
+    HiddenInput,
+    InputLine
 };
