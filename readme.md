@@ -6,6 +6,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/stevendixondev/Open-Web-Shell/badge.svg)](https://snyk.io/test/github/stevendixondev/Open-Web-Shell)
 [![build passing](https://travis-ci.com/StevenDixonDev/Open-Web-Shell.svg?branch=master)](https://travis-ci.com/StevenDixonDev/Open-Web-Shell)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Sourcegraph](https://sourcegraph.com/github.com/StevenDixonDev/Open-Web-Shell/-/badge.svg)](https://sourcegraph.com/github.com/StevenDixonDev/Open-Web-Shell?badge)
 
 Open web shell is a small and simple terminal/shell for your react web app or react website. 
 
