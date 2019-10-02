@@ -9,11 +9,10 @@ import {
 } from './styled-components';
 import { Engine } from './engine';
 import defaultCommands from './defaultCommands';
-import {createOutLines} from './outputLineHandler';
-import {core} from './shellCore';
+import {createOutLines} from './outputLineHandler';;
 
 const Shell = (props) => {
-  
+
   const { functionList, config, styles } = props;
   // Create a state that holds our styles
   const [stateStyles, setStateStyles] = useState(styles);
@@ -153,9 +152,7 @@ const Shell = (props) => {
   };
   
   /*
-   *
    * Effects
-   *
    */
   // when checking for enter on line
   useEffect(() => {

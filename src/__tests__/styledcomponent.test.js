@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ShellWrapper, LineInput, LineWrapper, LineOutput } from '../library/shell/styled-components';
+import { ShellWrapper, LineInput, LineWrapper, LineOutput } from '../library/Shell/styled-components';
 
 
 it('LineOutput renders without crashing', () => {
