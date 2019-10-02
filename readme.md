@@ -122,19 +122,30 @@ const styles = {
 
 ### In Developement: 
 
-v: 1.0.4
-    - Move dependencies to peer dependencies
-    - add new Styles (font-size)
-    - added startUp command options in funcs
-    - added command description, and flag descriptions
-    - added help command in default functions
-    - fixed incorrect license in Package.json
-    - small changes to internal package layout
-    - tests for styled components added
+V: 1.0.6
+
+- Fixed cursor when used on Edge browsers
+- Fixed tests not finding modules in travis
+- Fixed spacing on output elements
+- Fixed changing style color not changing the output lines color
+- Fixed maxChar not working in config
+- fixed proptypes not working properly
 
 ### Current: 
 
+v: 1.0.4/1.0.5
+
+- Move dependencies to peer dependencies
+- add new Styles (font-size)
+- added startUp command options in funcs
+- added command description, and flag descriptions
+- added help command in default functions
+- fixed incorrect license in Package.json
+- small changes to internal package layout
+- tests for styled components added
+
 v: 1.0.3 
-    - fixed spelling errors
-    - fixed a small bug in the focus function
-    - fixed bug where output lines were not aligned properly
+
+- fixed spelling errors
+- fixed a small bug in the focus function
+- fixed bug where output lines were not aligned properly
