@@ -25,4 +25,4 @@ const createOutLines = (line, stateStyles) => {
   return <LineOutput styles={stateStyles}>{line}</LineOutput>;
 };
 
-export {createOutLines};
+export default createOutLines;

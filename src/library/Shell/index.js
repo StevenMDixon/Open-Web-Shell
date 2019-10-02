@@ -9,10 +9,9 @@ import {
 } from './styled-components';
 import { Engine } from './engine';
 import defaultCommands from './defaultCommands';
-import {createOutLines} from './outputLineHandler';;
+import createOutLines from './outputLineHandler';
 
 const Shell = (props) => {
-
   const { functionList, config, styles } = props;
   // Create a state that holds our styles
   const [stateStyles, setStateStyles] = useState(styles);
@@ -92,37 +91,22 @@ const Shell = (props) => {
 
   const handleReturns = (ins) => {
     // Use the apply function to get the return from the engine
-    let output = ins? applyFunction(ins): "";
+    let output = ins ? applyFunction(ins) : '';
     // check if function is returned...
-    if(output instanceof Promise){
-      output.then(data => {
-        if (lines.length === 0) {
-          setLines([{ id: lines.length, instruction: ins, out: data }]);
-        } else {
-          setLines([
-            ...lines,
-            { id: lines.length, instruction: ins, out: data },
-          ]);
-        }
-        setInstruction('');
-        counterForPrevious.current = lines.length + 1;
-      })
-    }
-    else if (output instanceof Function) {
+    if (output instanceof Function) {
       output = 'function';
-    }
-    else {
-    if (lines.length === 0) {
-      setLines([{ id: lines.length, instruction: ins, out: output }]);
     } else {
-      setLines([
-        ...lines,
-        { id: lines.length, instruction: ins, out: output },
-      ]);
+      if (lines.length === 0) {
+        setLines([{ id: lines.length, instruction: ins, out: output }]);
+      } else {
+        setLines([
+          ...lines,
+          { id: lines.length, instruction: ins, out: output },
+        ]);
+      }
+      setInstruction('');
+      counterForPrevious.current = lines.length + 1;
     }
-    setInstruction('');
-    counterForPrevious.current = lines.length + 1;
-  }
   };
 
   // Checks for return character any time a keydown is detected
@@ -147,10 +131,10 @@ const Shell = (props) => {
     }
     if (e.key === 'Enter') {
       e.preventDefault();
-        handleReturns(instruction);
+      handleReturns(instruction);
     }
   };
-  
+
   /*
    * Effects
    */
@@ -194,8 +178,8 @@ const Shell = (props) => {
             {config.terminal || 'root@system:~$'}
             {item.instruction}
           </LineInput>
-          <div style={{marginBottom: '.5rem'}}>
-          {item.out ? createOutLines(item.out, stateStyles) : null}
+          <div style={{ marginBottom: '.5rem' }}>
+            {item.out ? createOutLines(item.out, stateStyles) : null}
           </div>
         </React.Fragment>
       ))}

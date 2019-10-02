@@ -9,7 +9,6 @@ function mapOptions(options) {
 }
 
 function defaultCommands(context, funcs = [], enabled = true) {
-  console.log(context)
   let list = [
     {
       name: 'help',

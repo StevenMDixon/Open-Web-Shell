@@ -1,5 +1,6 @@
 webpack.config.js
 .eslintrc.json
+.eslintignore
 .gitignore
 src
 build
@@ -10,3 +11,4 @@ styleguide.config.js
 webpack.config.js
 docs
 .travis.yml
+node_modules
