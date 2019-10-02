@@ -76,23 +76,8 @@ const functions = {
 const list = [
     {
         name: 'run', 
-        def:()=>(["This command is not implemented"])},
-    {
-        name: 'font', 
-        options: {t: (e)=>(e), d: (e)=>e }, 
-        func: (e)=>(functions.ChangeFonts(e.t||e)), 
-        def: (e)=>["Specify font with -t"]},
-    {  
-        name: 'promisetest',
-        def: () => {
-        let promise1 = new Promise(function(resolve, reject) {
-          setTimeout(function() {
-            resolve('foo');
-          }, 2000);
-        });
-        return promise1
-      },
-    }
+        def:()=>(["This command is not implemented"])
+    },
 ];
 
 

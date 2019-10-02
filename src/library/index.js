@@ -1,5 +1,4 @@
-import { Shell } from './Shell';
-
+import Shell from './Shell';
 
 export { Shell };
 

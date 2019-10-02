@@ -13,18 +13,3 @@ const CommandShell = (props) =>{
     }
 
 export default CommandShell;
-
-CommandShell.propTypes = {
-    /** Array of Objects containing functions */
-    functionList: PropTypes.array.isRequired,
-    /** Keys change config of the shell */
-    config: PropTypes.object.isRequired,
-    /** CSS in jss styles for shell component */
-    styles: PropTypes.object
-};
-
-CommandShell.defaultProps = {
-    functionList: [],
-    config: {},
-    styles: {}
-  };

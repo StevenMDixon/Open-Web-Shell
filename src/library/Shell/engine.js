@@ -1,10 +1,3 @@
-/*
-   * Todo:
-   *   
-   * some sort of actual scripting? Prompt command?
-   *  
-*/
-
 const getCommands = (command) => {
   // regex to match first word in command
   const output = command.match(/^\w*/g);
@@ -59,12 +52,12 @@ const Engine = (funcs, command, defError = false) => {
   // Find the function in the provided funcs array.
   const selectedCommand = getFunctionFromFunctionList(funcs, target);
 
-  if(!selectedCommand){
-    return `${target} is not a defined command.`
+  if (!selectedCommand) {
+    return `${target} is not a defined command.`;
   }
 
-  if(!selectedCommand.def){
-    return `Default command not specified.`;
+  if (!selectedCommand.def) {
+    return 'Default command not specified.';
   }
 
   // splits command to for next check to see if user input an extra space after command.
@@ -75,8 +68,8 @@ const Engine = (funcs, command, defError = false) => {
     return getCommandSuggestions(target, funcs, defError);
   }
 
-  //regex matches any flag, not a perfect pattern commands cannot have dashes
-  const testForOptions = command.match(/-.*?(?=\s\-)|-.*/g);
+  // regex matches any flag, not a perfect pattern commands cannot have dashes
+  const testForOptions = command.match(/-.*?(?=\s-)|-.*/g);
 
   // Case for default options or simple commands that take one input
   if (!testForOptions && splitCommand.length > 1) {
@@ -84,7 +77,7 @@ const Engine = (funcs, command, defError = false) => {
   }
 
   // Remove the target and the split the rest into flags.
-  //const options = command.replace(target, '').split(' -').filter(a => (a !== ' ' ? a : ''));
+  // const options = command.replace(target, '').split(' -').filter(a => (a !== ' ' ? a : ''));
 
   // Handle provided options while there are not any flags in the function
   if ((!selectedCommand.options
@@ -98,38 +91,36 @@ const Engine = (funcs, command, defError = false) => {
     || !selectedCommand.options
     || Object.keys(selectedCommand.options).length <= 0) {
     return selectedCommand.def(selectedCommand);
+  }
+  // Handle options, by creating a new array of objects.
+  // [{option: e, arg: ""}]
+  const splitCommands = testForOptions.reduce((acc, cur) => {
+    const r = cur.split(' ');
+    acc.push({ option: r[0].replace(/-/, ''), arg: r.slice(1, r.length).join(' ') });
+    return acc;
+  }, []);
 
-  } else {
-    // Handle options, by creating a new array of objects.
-    // [{option: e, arg: ""}]
-    const splitCommands = testForOptions.reduce((acc, cur) => {
-      const r = cur.split(' ');
-      acc.push({ option: r[0].replace(/-/, ''), arg: r.slice(1, r.length).join(' ') });
-      return acc;
-    }, []);
+  // Verify the options users passed in their command are valid
+  const runCommands = splitCommands.map((a) => {
+    const optionFunction = selectedCommand.options[a.option] || false;
 
-    // Verify the options users passed in their command are valid
-    const runCommands = splitCommands.map((a) => {
-      const optionFunction = selectedCommand.options[a.option] || false;
-
-      if (optionFunction) {
-        const tempObject = {};
-        tempObject[a.option] = optionFunction(a.arg);
-        return tempObject;
-      }
-      return false;
-    });
+    if (optionFunction) {
+      const tempObject = {};
+      tempObject[a.option] = optionFunction(a.arg);
+      return tempObject;
+    }
+    return false;
+  });
     // If the options where not valid our runCommmands will include false.
     // Test and return correct parameters if false.
     // This will not check if the users function return false now, this was an issue.
-    if (runCommands.includes(false)) {
-      return getCorrectParameters(selectedCommand);
-    }
-    // Return our selected command with the options passed in.
-    // currenty no way to tell which tag was specified in what order...
-    // we will make it return objects! when flags are present!
-    return selectedCommand.func(...runCommands);
+  if (runCommands.includes(false)) {
+    return getCorrectParameters(selectedCommand);
   }
+  // Return our selected command with the options passed in.
+  // currenty no way to tell which tag was specified in what order...
+  // we will make it return objects! when flags are present!
+  return selectedCommand.func(...runCommands);
 };
 
 const coreFunctions = {
